@@ -1,0 +1,1295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lotto Whisper - Official Lottery Checker</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1a5fb4;
+            --secondary: #ffd700;
+            --tertiary: #ff6b6b;
+            --success: #2ecc71;
+            --light: #f8f9fa;
+            --dark: #212529;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f2f5;
+            color: var(--dark);
+        }
+        
+        .header {
+            background: linear-gradient(to right, #0f4c81, #1e73be);
+            color: white;
+            padding: 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background-color: white;
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 15px;
+        }
+        
+        .logo i {
+            font-size: 30px;
+            color: var(--primary);
+        }
+        
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .logo-text h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+        
+        .logo-text p {
+            margin: 0;
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+        
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .nav-button {
+            background-color: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .nav-button.primary {
+            background-color: white;
+            color: var(--primary);
+        }
+        
+        .nav-button:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+        
+        .nav-button.primary:hover {
+            background-color: #f0f0f0;
+        }
+        
+        .header-strip {
+            background-color: rgba(0, 0, 0, 0.2);
+            padding: 8px 20px;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .next-draw {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .next-draw-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        .next-draw-number {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: white;
+        }
+        
+        .jackpot-amount {
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .euro-sign {
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .content-wrapper {
+            width: 100%;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: transform 0.3s ease;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .card-header {
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .card-header h2 {
+            margin: 0;
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+        
+        .card-header i {
+            color: var(--secondary);
+            font-size: 1.5rem;
+        }
+        
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+            box-sizing: border-box;
+        }
+        
+        input:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+        
+        /* Number input circles */
+        .number-circles {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        
+        .number-circle {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #f5f7fa;
+            border: 2px solid #e0e0e0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .number-circle:hover {
+            border-color: var(--primary);
+            background-color: #edf2f7;
+        }
+        
+        .number-circle input {
+            width: 40px;
+            height: 40px;
+            padding: 0;
+            margin: 0;
+            border: none;
+            background: transparent;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--dark);
+        }
+        
+        .number-circle input:focus {
+            outline: none;
+        }
+        
+        .number-circle.error {
+            border-color: var(--tertiary);
+            animation: shake 0.5s;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-5px); }
+            40%, 80% { transform: translateX(5px); }
+        }
+        
+        /* Number display in results */
+        .number-balls {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 15px 0;
+            flex-wrap: wrap;
+        }
+        
+        .number-ball {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            font-size: 1rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 24px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        button i {
+            margin-right: 8px;
+        }
+        
+        button:hover {
+            background-color: #0d4d9a;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .check-btn {
+            width: 100%;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-top: 10px;
+        }
+        
+        #result {
+            display: none;
+        }
+        
+        .result-card {
+            text-align: center;
+            background: linear-gradient(135deg, #f5f7fa, #e4e8f0);
+        }
+        
+        .result-status {
+            font-size: 1.5rem;
+            margin: 15px 0;
+            font-weight: bold;
+        }
+        
+        .not-winner {
+            color: #e74c3c;
+        }
+        
+        .winner {
+            color: #2ecc71;
+            animation: pulse 2s infinite;
+        }
+        
+        .winning-number {
+            font-size: 1.3rem;
+            margin: 15px 0;
+            padding: 10px;
+            background-color: rgba(26, 95, 180, 0.1);
+            border-radius: 8px;
+            display: inline-block;
+        }
+        
+        .winning-number span {
+            font-weight: bold;
+            color: var(--primary);
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.8; }
+            100% { opacity: 1; }
+        }
+        
+        .purchased-info {
+            font-size: 1rem;
+            color: #7f8c8d;
+            margin-bottom: 15px;
+        }
+        
+        .winners-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            font-size: 0.9rem;
+        }
+        
+        .winners-table th, .winners-table td {
+            border: 1px solid #e0e0e0;
+            padding: 10px;
+            text-align: center;
+        }
+        
+        .winners-table th {
+            background-color: #f5f7fa;
+            color: var(--primary);
+            font-weight: bold;
+        }
+        
+        .winners-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        .winners-table tr:hover {
+            background-color: #f0f4f8;
+        }
+        
+        .jackpot-card {
+            background: linear-gradient(135deg, #f9ca24, #f0932b);
+            color: white;
+            text-align: center;
+            max-width: 800px;
+            width: 100%;
+            margin: 0 auto 20px auto;
+            box-sizing: border-box;
+        }
+        
+        .jackpot-amount {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin: 10px 0;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+        
+        .jackpot-label {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+        
+        .drawing-info {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            padding: 10px;
+            font-size: 1rem;
+        }
+        
+        .ad-card {
+            position: relative;
+            overflow: hidden;
+            padding: 0;
+            min-height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #7b4397, #dc2430);
+            color: white;
+            text-align: center;
+        }
+        
+        .ad-content {
+            padding: 20px;
+            width: 100%;
+        }
+        
+        .ad-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .ad-text {
+            font-size: 1rem;
+            margin-bottom: 15px;
+        }
+        
+        .ad-btn {
+            background-color: white;
+            color: var(--primary);
+            font-weight: bold;
+            padding: 8px 16px;
+            border-radius: 50px;
+            display: inline-block;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .ad-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .ad-badge {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: rgba(255, 255, 255, 0.3);
+            font-size: 0.7rem;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 20px;
+            position: relative;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 10px 0;
+        }
+        
+        .footer-links a {
+            color: #bdc3c7;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .settings-btn {
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            background: transparent;
+            color: #7f8c8d;
+            font-size: 0.8rem;
+            padding: 5px;
+            opacity: 0.3;
+            border-radius: 3px;
+        }
+        
+        .settings-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: none;
+            box-shadow: none;
+            opacity: 1;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            animation: fadeIn 0.3s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .modal-content {
+            background-color: white;
+            margin: 10% auto;
+            padding: 20px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+            animation: slideIn 0.3s;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateY(-30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .modal-header h3 {
+            margin: 0;
+            color: var(--primary);
+        }
+        
+        .close-btn {
+            background: transparent;
+            color: #7f8c8d;
+            font-size: 1.5rem;
+            padding: 0;
+            cursor: pointer;
+            border: none;
+        }
+        
+        .close-btn:hover {
+            color: #e74c3c;
+            background: transparent;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .settings-group {
+            margin-bottom: 15px;
+        }
+        
+        .settings-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: var(--dark);
+        }
+        
+        /* Force number input in settings */
+        .force-number-inputs {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 5px;
+        }
+        
+        .force-number-input {
+            width: 50px;
+            padding: 8px;
+            text-align: center;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+        }
+
+        /* Pagination for winners table */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 15px;
+        }
+        
+        .pagination button {
+            padding: 8px 12px;
+            margin: 0 5px;
+            background-color: #f5f7fa;
+            color: var(--primary);
+            border: 1px solid #e0e0e0;
+        }
+        
+        .pagination button.active {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .pagination button:hover:not(.active) {
+            background-color: #e0e0e0;
+        }
+        
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .jackpot-amount {
+                font-size: 2rem;
+            }
+            
+            .winners-table th, .winners-table td {
+                padding: 6px 4px;
+                font-size: 0.8rem;
+            }
+            
+            .winners-table th:nth-child(1),
+            .winners-table td:nth-child(1) {
+                width: 15%;
+            }
+            
+            .winners-table th:nth-child(2),
+            .winners-table td:nth-child(2) {
+                width: 30%;
+            }
+            
+            .winners-table th:nth-child(3),
+            .winners-table td:nth-child(3) {
+                width: 25%;
+            }
+            
+            .winners-table th:nth-child(4),
+            .winners-table td:nth-child(4) {
+                width: 30%;
+            }
+            
+            .header-top {
+                flex-direction: column;
+                padding: 10px;
+            }
+            
+            .nav-buttons {
+                margin-top: 10px;
+            }
+            
+            .header-strip {
+                flex-direction: column;
+                gap: 5px;
+                padding: 10px;
+            }
+            
+            .number-circles {
+                gap: 10px;
+            }
+            
+            .number-circle {
+                width: 50px;
+                height: 50px;
+            }
+            
+            .number-circle input {
+                width: 35px;
+                height: 35px;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-top">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-ticket-alt"></i>
+                </div>
+                <div class="logo-text">
+                    <h1>Lotto Whisper</h1>
+                    <p>OFFICIAL LOTTERY CHECKER</p>
+                </div>
+            </div>
+            <div class="nav-buttons">
+                <button class="nav-button">
+                    <i class="fas fa-bars"></i> Menu
+                </button>
+            </div>
+        </div>
+        <div class="header-strip">
+            <div class="next-draw">
+                <div class="next-draw-label">NEXT DRAWING:</div>
+                <div class="next-draw-number">
+                    <script>
+                        const today = new Date();
+                        const nextDrawDate = new Date(today);
+                        nextDrawDate.setDate(today.getDate() + 2);
+                        const options = { month: 'long', day: 'numeric', year: 'numeric' };
+                        document.write(nextDrawDate.toLocaleDateString('en-US', options));
+                    </script>
+                </div>
+            </div>
+            <div class="jackpot-amount">
+                <span class="euro-sign">JACKPOT:</span>
+                <span id="jackpot-amount"></span>
+            </div>
+            <script>
+                const baseJackpot = 42500000;
+                const fluctuation = Math.floor(Math.random() * 1000000) - 500000; // Random fluctuation between -500,000 and +500,000
+                const todayJackpot = baseJackpot + fluctuation;
+                document.getElementById('jackpot-amount').innerText = `$${todayJackpot.toLocaleString()}`;
+            </script>
+        </div>
+    </div>
+
+    <div style="height: 20px;"></div>
+
+    <div class="container">
+        <div class="content-wrapper">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Check Numbers</h2>
+                    <i class="fas fa-clover"></i>
+                </div>
+                <p>Enter your five lottery numbers (01-50 for each):</p>
+                <div class="number-circles">
+                    <div class="number-circle">
+                        <input type="text" class="lottery-ball" id="ball-1" maxlength="2" placeholder="##" oninput="validateInput(this)">
+                    </div>
+                    <div class="number-circle">
+                        <input type="text" class="lottery-ball" id="ball-2" maxlength="2" placeholder="##" oninput="validateInput(this)">
+                    </div>
+                    <div class="number-circle">
+                        <input type="text" class="lottery-ball" id="ball-3" maxlength="2" placeholder="##" oninput="validateInput(this)">
+                    </div>
+                    <div class="number-circle">
+                        <input type="text" class="lottery-ball" id="ball-4" maxlength="2" placeholder="##" oninput="validateInput(this)">
+                    </div>
+                    <div class="number-circle">
+                        <input type="text" class="lottery-ball" id="ball-5" maxlength="2" placeholder="##" oninput="validateInput(this)">
+                    </div>
+                </div>
+                <button class="check-btn" onclick="checkNumbers()">
+                    <i class="fas fa-check-circle"></i> Check My Numbers
+                </button>
+            </div>
+
+            <div class="card result-card" id="result">
+                <div class="card-header">
+                    <h2>Results</h2>
+                    <i class="fas fa-trophy"></i>
+                </div>
+                <p class="result-status" id="status"></p>
+                <div id="winning-number"></div>
+                <p class="purchased-info" id="purchased-count"></p>
+            </div>
+
+            <div class="card" id="winner-list">
+                <div class="card-header">
+                    <h2>Recent Winners</h2>
+                    <i class="fas fa-award"></i>
+                </div>
+                <div class="winners-container">
+                    <table class="winners-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Date</th>
+                                <th>Numbers</th>
+                                <th>Prize</th>
+                            </tr>
+                        </thead>
+                        <tbody id="winners">
+                            <!-- Winners will be populated here -->
+                        </tbody>
+                    </table>
+                    <div class="pagination" id="pagination">
+                        <!-- Pagination buttons will be added here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Magic Square Card (Replacing Hot Numbers) -->
+            <div class="card">
+                <div class="card-header">
+                    <h2>Hot/Cold Numbers</h2>
+                    <i class="fas fa-fire"></i>
+                </div>
+                <p>Most and least frequently drawn numbers this month:</p>
+                <div id="magic-square-container" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 15px 0; max-width: 300px; margin-left: auto; margin-right: auto;">
+                    <!-- Magic square numbers will be populated here -->
+                </div>
+                <p style="text-align: center; font-size: 0.9rem; color: #666;">These numbers might bring you luck!</p>
+            </div>
+            
+            <div class="card ad-card" style="background: linear-gradient(135deg, #3498db, #2ecc71);">
+                <div class="ad-badge">Advertisement</div>
+                <div class="ad-content">
+                    <div class="ad-title">Exclusive Lottery Tips</div>
+                    <div class="ad-text">Get insider tips and strategies to increase your chances of winning the lottery. Subscribe to our newsletter now!</div>
+                    <a href="https://www.lotterytips.com" class="ad-btn" target="_blank">Subscribe Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-links">
+            <a href="#">Home</a>
+            <a href="#">About</a>
+            <a href="#">Winners</a>
+            <a href="#">How to Play</a>
+            <a href="#">Responsible Gaming</a>
+            <a href="#">Contact Us</a>
+        </div>
+        <p>&copy; 2025 Lotto Whisper. All rights reserved.</p>
+        <button class="settings-btn" id="settings-btn">Admin Settings</button>
+    </footer>
+
+    <!-- Settings Modal -->
+    <div id="settings-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Admin Settings</h3>
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="settings-group">
+                <label for="force-name">Forced Winner Name:</label>
+                <input type="text" id="force-name" placeholder="Enter name">
+            </div>
+            <div class="settings-group">
+                <label>Forced Winning Numbers:</label>
+                <div class="force-number-inputs">
+                    <input type="text" class="force-number-input" id="force-number-1" placeholder="##" maxlength="2" oninput="validateInput(this)">
+                    <input type="text" class="force-number-input" id="force-number-2" placeholder="##" maxlength="2" oninput="validateInput(this)">
+                    <input type="text" class="force-number-input" id="force-number-3" placeholder="##" maxlength="2" oninput="validateInput(this)">
+                    <input type="text" class="force-number-input" id="force-number-4" placeholder="##" maxlength="2" oninput="validateInput(this)">
+                    <input type="text" class="force-number-input" id="force-number-5" placeholder="##" maxlength="2" oninput="validateInput(this)">
+                </div>
+            </div>
+            <div class="settings-group">
+                <label for="force-date">Forced Winner Date:</label>
+                <input type="text" id="force-date" placeholder="MM/DD/YYYY">
+            </div>
+            <div class="settings-group">
+                <label for="force-prize">Forced Prize Amount:</label>
+                <input type="text" id="force-prize" placeholder="$5,000,000">
+            </div>
+            <!-- Magic Square Settings -->
+            <div class="settings-group">
+                <label for="magic-sum-setting">Magic Square Sum:</label>
+                <input type="number" id="magic-sum-setting" placeholder="Enter desired sum (18-136)">
+            </div>
+            <button onclick="saveSettings()">
+                <i class="fas fa-save"></i> Save Settings
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Initialization with default values
+        let forcedName = "Shaun Dunn";
+        let forcedDate = "12/08/2024";
+        // Updated with 5 numbers format
+        let forcedNumbers = ["13", "20", "27", "29", "30"];
+        let forcedPrize = "$1,200,000";
+        let magicSum = 34; // Default magic sum value
+        
+        // Track current page for pagination
+        let currentPage = 1;
+        const rowsPerPage = 15;
+
+        let winners = [];
+
+        // Function to validate input to ensure it's between 01-50
+        function validateInput(input) {
+            // Remove any non-numeric characters
+            input.value = input.value.replace(/[^0-9]/g, '');
+            
+            // Format with leading zero if needed
+            if (input.value.length === 1) {
+                // If single digit, don't add leading zero yet - wait for second digit
+            } else if (input.value.length === 2) {
+                // Ensure number is between 01-50
+                const num = parseInt(input.value);
+                if (num < 1 || num > 50) {
+                    input.parentElement.classList.add('error');
+                    setTimeout(() => {
+                        input.parentElement.classList.remove('error');
+                    }, 500);
+                    input.value = '';
+                }
+            } else if (input.value.length > 2) {
+                // Truncate to 2 digits
+                input.value = input.value.substring(0, 2);
+            }
+            
+            // Auto-focus next input when current one is filled
+            if (input.value.length === 2) {
+                const currentId = input.id;
+                if (currentId.startsWith('ball-')) {
+                    const currentNum = parseInt(currentId.split('-')[1]);
+                    if (currentNum < 5) {
+                        document.getElementById(`ball-${currentNum + 1}`).focus();
+                    }
+                } else if (currentId.startsWith('force-number-')) {
+                    const currentNum = parseInt(currentId.split('-')[2]);
+                    if (currentNum < 5) {
+                        document.getElementById(`force-number-${currentNum + 1}`).focus();
+                    }
+                }
+            }
+        }
+
+        // Function to check if numbers are valid and unique
+        function areNumbersValid(numbers) {
+            // Check if all numbers are filled
+            if (numbers.some(num => num === '')) {
+                return false;
+            }
+            
+            // Check if numbers are unique
+            const uniqueNumbers = new Set(numbers);
+            return uniqueNumbers.size === numbers.length;
+        }
+
+        // Function to get the user's input numbers
+        function getUserNumbers() {
+            return [1, 2, 3, 4, 5].map(num => {
+                return document.getElementById(`ball-${num}`).value.padStart(2, '0');
+            });
+        }
+
+        // Function to check for winning numbers
+        function checkNumbers() {
+            const userNumbers = getUserNumbers();
+            
+            // Validate all inputs are filled and unique
+            if (!areNumbersValid(userNumbers)) {
+                alert("Please enter 5 unique numbers between 01 and 50.");
+                return;
+            }
+            
+            // Calculate winning numbers based on user input
+            // Formula: reverse the order and subtract each from 50
+            let winningNumbers = userNumbers.map(num => {
+                // Convert to number, subtract from 50, and format back to 2 digits
+                return (50 - parseInt(num)).toString().padStart(2, '0');
+            }).reverse();
+            
+            // Compare user numbers with winning numbers
+            const matchCount = userNumbers.filter(num => winningNumbers.includes(num)).length;
+            
+            // Show result
+            document.getElementById('result').style.display = 'block';
+            
+            // Display winning numbers
+            const winningNumbersHTML = `
+                <div class="winning-number">Today's Winning Numbers: 
+                    <div class="number-balls">
+                        ${winningNumbers.map(num => `<div class="number-ball">${num}</div>`).join('')}
+                    </div>
+                </div>
+            `;
+            document.getElementById('winning-number').innerHTML = winningNumbersHTML;
+            
+            // Show match status
+            const statusElement = document.getElementById('status');
+            if (matchCount === 5) {
+                statusElement.innerHTML = '🎉 JACKPOT WINNER! 🎉';
+                statusElement.className = 'result-status winner';
+            } else {
+                statusElement.innerHTML = `THESE NUMBERS HAVE NOT BEEN AWARDED`;
+                statusElement.className = 'result-status not-winner';
+            }
+            
+            // Show purchase info and set for winner list placement
+            const randomPurchases = Math.floor(Math.random() * 10) + 1;
+            document.getElementById('purchased-count').innerText = `${randomPurchases} people bought the same number you did!`;
+            
+            // Regenerate winners list with forced numbers at the position based on number of purchases
+            winners = generateWinners(randomPurchases);
+            displayWinners();
+            
+            // Scroll to result
+            document.getElementById('result').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Function to generate unique random numbers
+        function generateRandomNumbers(count, min, max) {
+            const numbers = new Set();
+            while (numbers.size < count) {
+                const num = Math.floor(Math.random() * (max - min + 1)) + min;
+                numbers.add(num.toString().padStart(2, '0'));
+            }
+            return Array.from(numbers);
+        }
+
+        // Function to generate winners
+        function generateWinners(purchaseCount = 0) {
+            const winners = [];
+            const startDate = new Date('01/01/2024');
+            const endDate = new Date();
+            
+            // Generate 50 random winners
+            for (let i = 0; i < 50; i++) {
+                const randomDate = new Date(startDate.getTime() + Math.random() * (endDate.getTime() - startDate.getTime()));
+                const dateString = randomDate.toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: 'numeric' });
+                
+                // Generate 5 unique random numbers
+                const numbers = generateRandomNumbers(5, 1, 50);
+                
+                // Generate random prize amount
+                const prizeAmount = Math.floor(Math.random() * 10000000) + 100000;
+                const formattedPrize = `$${prizeAmount.toLocaleString()}`;
+                
+                winners.push({
+                    id: i + 1,
+                    date: dateString,
+                    numbers: numbers,
+                    prize: formattedPrize
+                });
+            }
+            
+            // Add forced winner at the position matching the purchase count
+            if (forcedName && forcedDate && forcedNumbers.every(num => num !== '') && forcedPrize && purchaseCount > 0 && purchaseCount <= winners.length) {
+                // Remove existing entry at the purchase count position
+                winners.splice(purchaseCount - 1, 1, {
+                    id: purchaseCount,
+                    date: forcedDate,
+                    numbers: forcedNumbers,
+                    prize: forcedPrize
+                });
+            }
+            
+            return winners;
+        }
+
+        // Function to display winners with pagination
+        function displayWinners() {
+            const table = document.getElementById('winners');
+            table.innerHTML = '';
+            
+            // Calculate pagination
+            const start = (currentPage - 1) * rowsPerPage;
+            const end = start + rowsPerPage;
+            const paginatedWinners = winners.slice(start, end);
+            
+            // Add rows for each winner
+            paginatedWinners.forEach(winner => {
+                const row = document.createElement('tr');
+                
+                // ID cell
+                const idCell = document.createElement('td');
+                idCell.textContent = winner.id;
+                row.appendChild(idCell);
+                
+                // Date cell
+                const dateCell = document.createElement('td');
+                dateCell.textContent = winner.date;
+                row.appendChild(dateCell);
+                
+                // Numbers cell - updated to show all 5 numbers in circles
+                const numbersCell = document.createElement('td');
+                const numberBalls = document.createElement('div');
+                numberBalls.className = 'number-balls';
+                
+                winner.numbers.forEach(number => {
+                    const ball = document.createElement('div');
+                    ball.className = 'number-ball';
+                    ball.style.width = '25px';
+                    ball.style.height = '25px';
+                    ball.style.fontSize = '0.8rem';
+                    ball.textContent = number;
+                    numberBalls.appendChild(ball);
+                });
+                
+                numbersCell.appendChild(numberBalls);
+                row.appendChild(numbersCell);
+                
+                // Prize cell
+                const prizeCell = document.createElement('td');
+                prizeCell.textContent = winner.prize;
+                row.appendChild(prizeCell);
+                
+                table.appendChild(row);
+            });
+            
+            // Setup pagination
+            setupPagination();
+        }
+
+        // Function to setup pagination
+        function setupPagination() {
+            const totalPages = Math.ceil(winners.length / rowsPerPage);
+            const pagination = document.getElementById('pagination');
+            pagination.innerHTML = '';
+            
+            for (let i = 1; i <= totalPages; i++) {
+                const button = document.createElement('button');
+                button.textContent = i;
+                if (i === currentPage) {
+                    button.classList.add('active');
+                }
+                
+                button.addEventListener('click', () => {
+                    currentPage = i;
+                    displayWinners();
+                });
+                
+                pagination.appendChild(button);
+            }
+        }
+
+        // Function to generate and display magic square
+        function displayMagicSquare() {
+            const container = document.getElementById('magic-square-container');
+            container.innerHTML = '';
+            
+            // Generate a proper 4x4 magic square with the desired magic sum
+            // The standard 4x4 magic square has a sum of 34 (with numbers 1-16)
+            // We'll adjust for the desired sum
+            
+            // Traditional 4x4 magic square pattern
+            const baseMagicSquare = [
+                [16, 3, 2, 13],
+                [5, 10, 11, 8],
+                [9, 6, 7, 12],
+                [4, 15, 14, 1]
+            ];
+            
+            // Calculate adjustment factor to reach desired magic sum
+            const standardSum = 34; // Standard magic sum for 4x4 square
+            const adjustment = (magicSum - standardSum) / 4;
+            
+            // Apply adjustment and create flattened numbers array
+            const numbers = [];
+            for (let i = 0; i < 4; i++) {
+                for (let j = 0; j < 4; j++) {
+                    let num = Math.round(baseMagicSquare[i][j] + adjustment);
+                    // Ensure number is between 1-50
+                    num = Math.max(1, Math.min(50, num));
+                    numbers.push(num.toString().padStart(2, '0'));
+                }
+            }
+            
+            // Display numbers in grid with hot/cold coloring
+            numbers.forEach(num => {
+                const cell = document.createElement('div');
+                cell.className = 'number-ball';
+                
+                // Add styling for circular balls
+                cell.style.width = '40px';
+                cell.style.height = '40px';
+                cell.style.borderRadius = '50%';
+                cell.style.display = 'flex';
+                cell.style.justifyContent = 'center';
+                cell.style.alignItems = 'center';
+                cell.style.fontWeight = 'bold';
+                cell.style.color = 'white';
+                cell.style.margin = '0 auto';
+                cell.textContent = num;
+                
+                // Randomly assign hot (red) or cold (blue) color
+                if (Math.random() > 0.5) {
+                    // Hot numbers (red)
+                    cell.style.backgroundColor = '#e74c3c';
+                } else {
+                    // Cold numbers (blue)
+                    cell.style.backgroundColor = '#1a5fb4';
+                }
+                
+                container.appendChild(cell);
+            });
+        }
+
+        // Function to open settings modal
+        function openModal() {
+            document.getElementById('settings-modal').style.display = 'block';
+            
+            // Fill in current settings
+            document.getElementById('force-name').value = forcedName;
+            document.getElementById('force-date').value = forcedDate;
+            document.getElementById('force-prize').value = forcedPrize;
+            document.getElementById('magic-sum-setting').value = magicSum;
+            
+            // Fill in forced numbers
+            for (let i = 0; i < 5; i++) {
+                document.getElementById(`force-number-${i+1}`).value = forcedNumbers[i] || '';
+            }
+        }
+
+        // Function to close settings modal
+        function closeModal() {
+            document.getElementById('settings-modal').style.display = 'none';
+        }
+
+        // Function to save settings
+        function saveSettings() {
+            forcedName = document.getElementById('force-name').value;
+            forcedDate = document.getElementById('force-date').value;
+            forcedPrize = document.getElementById('force-prize').value;
+            
+            // Get forced numbers
+            forcedNumbers = [];
+            for (let i = 0; i < 5; i++) {
+                const input = document.getElementById(`force-number-${i+1}`);
+                forcedNumbers.push(input.value.padStart(2, '0'));
+            }
+            
+            // Get magic sum setting
+            const magicSumInput = parseInt(document.getElementById('magic-sum-setting').value);
+            if (!isNaN(magicSumInput) && magicSumInput >= 18 && magicSumInput <= 136) {
+                magicSum = magicSumInput;
+            }
+            
+            // Regenerate winners with new settings
+            winners = generateWinners();
+            displayWinners();
+            displayMagicSquare();
+            
+            closeModal();
+        }
+
+        // Initialize on page load
+        window.onload = function() {
+            // Setup event listeners
+            document.getElementById('settings-btn').addEventListener('click', openModal);
+            
+            // Initialize winners display
+            displayWinners();
+            
+            // Initialize magic square
+            displayMagicSquare();
+        };
+
+        // Handle closing modal when clicking outside
+        window.onclick = function(event) {
+            if (event.target === document.getElementById('settings-modal')) {
+                closeModal();
+            }
+        };
+    </script>
+</body>
+</html>
