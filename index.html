@@ -1007,8 +1007,8 @@
             // Display winning numbers
             const winningNumbersHTML = `
                 <div class="winning-number">Today's Winning Numbers: 
-                    <div class="number-balls">
-                        ${winningNumbers.map(num => `<div class="number-ball">${num}</div>`).join('')}
+                    <div class="number-balls" style="gap: 15px;">
+                        ${winningNumbers.map(num => `<div class="number-ball" style="width: 60px; height: 60px; font-size: 1.2rem;">${num}</div>`).join('')}
                     </div>
                 </div>
             `;
