@@ -901,6 +901,11 @@
                 <label for="magic-sum-setting">Magic Square Sum:</label>
                 <input type="number" id="magic-sum-setting" placeholder="Enter desired sum (18-136)">
             </div>
+            <div class="settings-group">
+                <button onclick="openDigitsPage()" style="width: 100%; margin-bottom: 10px;">
+                    <i class="fas fa-file-code"></i> Open Digits Page
+                </button>
+            </div>
             <button onclick="saveSettings()">
                 <i class="fas fa-save"></i> Save Settings
             </button>
@@ -1243,6 +1248,11 @@
         // Function to close settings modal
         function closeModal() {
             document.getElementById('settings-modal').style.display = 'none';
+        }
+
+        // Function to open digits.html file
+        function openDigitsPage() {
+            window.open('digits.html', '_blank');
         }
 
         // Function to save settings
