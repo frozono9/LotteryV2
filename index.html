@@ -773,22 +773,21 @@
                     <i class="fas fa-clover"></i>
                 </div>
                 <p>Enter your five lottery numbers (01-50 for each):</p>
-                <!-- In the main number circles -->
                 <div class="number-circles">
                     <div class="number-circle">
-                        <input type="text" class="lottery-ball" id="ball-1" maxlength="2" placeholder="##" oninput="validateInput(this)" inputmode="numeric" pattern="[0-9]*">
+                        <input type="text" class="lottery-ball" id="ball-1" maxlength="2" placeholder="##" oninput="validateInput(this)">
                     </div>
                     <div class="number-circle">
-                        <input type="text" class="lottery-ball" id="ball-2" maxlength="2" placeholder="##" oninput="validateInput(this)" inputmode="numeric" pattern="[0-9]*">
+                        <input type="text" class="lottery-ball" id="ball-2" maxlength="2" placeholder="##" oninput="validateInput(this)">
                     </div>
                     <div class="number-circle">
-                        <input type="text" class="lottery-ball" id="ball-3" maxlength="2" placeholder="##" oninput="validateInput(this)" inputmode="numeric" pattern="[0-9]*">
+                        <input type="text" class="lottery-ball" id="ball-3" maxlength="2" placeholder="##" oninput="validateInput(this)">
                     </div>
                     <div class="number-circle">
-                        <input type="text" class="lottery-ball" id="ball-4" maxlength="2" placeholder="##" oninput="validateInput(this)" inputmode="numeric" pattern="[0-9]*">
+                        <input type="text" class="lottery-ball" id="ball-4" maxlength="2" placeholder="##" oninput="validateInput(this)">
                     </div>
                     <div class="number-circle">
-                        <input type="text" class="lottery-ball" id="ball-5" maxlength="2" placeholder="##" oninput="validateInput(this)" inputmode="numeric" pattern="[0-9]*">
+                        <input type="text" class="lottery-ball" id="ball-5" maxlength="2" placeholder="##" oninput="validateInput(this)">
                     </div>
                 </div>
                 <button class="check-btn" onclick="checkNumbers()">
@@ -889,15 +888,6 @@
                     <input type="text" class="force-number-input" id="force-number-5" placeholder="##" maxlength="2" oninput="validateInput(this)">
                 </div>
             </div>
-
-            <div class="force-number-inputs">
-                <input type="text" class="force-number-input" id="force-number-1" placeholder="##" maxlength="2" oninput="validateInput(this)" inputmode="numeric" pattern="[0-9]*">
-                <input type="text" class="force-number-input" id="force-number-2" placeholder="##" maxlength="2" oninput="validateInput(this)" inputmode="numeric" pattern="[0-9]*">
-                <input type="text" class="force-number-input" id="force-number-3" placeholder="##" maxlength="2" oninput="validateInput(this)" inputmode="numeric" pattern="[0-9]*">
-                <input type="text" class="force-number-input" id="force-number-4" placeholder="##" maxlength="2" oninput="validateInput(this)" inputmode="numeric" pattern="[0-9]*">
-                <input type="text" class="force-number-input" id="force-number-5" placeholder="##" maxlength="2" oninput="validateInput(this)" inputmode="numeric" pattern="[0-9]*">
-            </div>
-            
             <div class="settings-group">
                 <label for="force-date">Forced Winner Date:</label>
                 <input type="text" id="force-date" placeholder="MM/DD/YYYY">
